@@ -14,7 +14,7 @@ import {
   RefreshCw,
   AlertTriangle
 } from 'lucide-react';
-import { PendingPost, Report, ModerationStats } from '@/lib/supabase';
+import { PendingPost, Report, ModerationStats, supabaseUrl } from '@/lib/supabase';
 
 export default function ModerationPage() {
   const [stats, setStats] = useState<ModerationStats>({
@@ -245,7 +245,7 @@ export default function ModerationPage() {
                     <div className="relative">
                       <div className="w-48 h-32 bg-black rounded-lg overflow-hidden">
                         <video
-                          src={post.video_url.startsWith('http') ? post.video_url : `${supabaseUrl}/storage/v1/object/public/${post.video_url}`}
+                          src={post.video_url}
                           className="w-full h-full object-cover"
                           controls
                           muted

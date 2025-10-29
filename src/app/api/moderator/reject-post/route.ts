@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
       .eq('id', postId);
 
     if (updateError) {
-      console.error('Update error:', updateError);
+      console.error('Post rejection failed:', { postId, error: updateError.message });
       return NextResponse.json({ 
         success: false, 
         message: 'Failed to reject post' 
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       try {
         await supabaseAdmin.storage.from('videos').remove([post.video_url]);
       } catch (cleanupError) {
-        console.error('Cleanup error:', cleanupError);
+        console.error('Video cleanup failed:', { postId, error: cleanupError instanceof Error ? cleanupError.message : 'Unknown error' });
         // Don't fail the rejection if cleanup fails
       }
     }
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
       message: 'Post rejected successfully' 
     });
   } catch (error) {
-    console.error('Reject post error:', error);
+    console.error('Post rejection error:', { error: error instanceof Error ? error.message : 'Unknown error' });
     return NextResponse.json({ 
       success: false, 
       message: 'Internal server error' 

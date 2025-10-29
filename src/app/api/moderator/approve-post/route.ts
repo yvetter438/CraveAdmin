@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
       try {
         await supabaseAdmin.storage.from('videos').remove([post.video_url]);
       } catch (cleanupError) {
-        console.error('Video cleanup failed:', { postId, error: cleanupError.message });
+        console.error('Video cleanup failed:', { postId, error: cleanupError instanceof Error ? cleanupError.message : 'Unknown error' });
         // Don't fail the approval if cleanup fails
       }
     }
