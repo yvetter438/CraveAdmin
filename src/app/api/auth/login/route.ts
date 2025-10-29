@@ -46,6 +46,9 @@ export async function POST(request: NextRequest) {
     const { password } = await request.json();
     console.log('Login attempt - password received:', !!password);
     console.log('Login attempt - password length:', password?.length || 0);
+    console.log('Login attempt - password value:', JSON.stringify(password));
+    console.log('Login attempt - ADMIN_PASSWORD value:', JSON.stringify(process.env.ADMIN_PASSWORD));
+    console.log('Login attempt - passwords match exactly:', password === process.env.ADMIN_PASSWORD);
     
     if (!password) {
       return NextResponse.json({ error: 'Password is required' }, { status: 400 });

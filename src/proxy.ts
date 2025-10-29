@@ -3,6 +3,12 @@ import { checkAuth } from '@/lib/auth';
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const host = request.headers.get('host');
+  
+  // Force redirect to custom domain if accessing via Vercel default domain
+  if (host && host.includes('vercel.app') && !host.includes('admin.cravesocial.app')) {
+    return NextResponse.redirect(new URL(`https://admin.cravesocial.app${pathname}`, request.url));
+  }
   
   // Allow access to login page and API routes
   if (pathname === '/login' || pathname.startsWith('/api/auth/login')) {
