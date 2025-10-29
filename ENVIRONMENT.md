@@ -5,7 +5,7 @@ Create a `.env.local` file in the root directory with the following variables:
 ```bash
 # Admin Dashboard Configuration
 ADMIN_PASSWORD=your-secure-password-here  # REQUIRED - No default password for security
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_APP_URL=https://admin.cravesocial.app
 
 # Supabase Configuration (REQUIRED for moderation features)
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
