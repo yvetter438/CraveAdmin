@@ -16,9 +16,12 @@ export const metadata: Metadata = {
   title: "Crave Admin Dashboard",
   description: "Admin dashboard for Crave social media platform moderation and management",
   icons: {
-    icon: '/favicon.png',
-    shortcut: '/favicon.png',
-    apple: '/favicon.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png' }
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/icon.png',
   },
 };
 
