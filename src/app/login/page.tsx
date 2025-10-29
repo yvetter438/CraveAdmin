@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Lock, Eye, EyeOff } from 'lucide-react';
+import Image from 'next/image';
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function LoginPage() {
   const [password, setPassword] = useState('');
@@ -41,8 +42,14 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <div className="max-w-md w-full space-y-8 p-8">
         <div className="text-center">
-          <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-purple-600">
-            <Lock className="h-6 w-6 text-white" />
+          <div className="mx-auto h-16 w-16 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm">
+            <Image 
+              src="/logo.png" 
+              alt="Crave Admin Logo" 
+              width={48} 
+              height={48} 
+              className="h-12 w-12"
+            />
           </div>
           <h2 className="mt-6 text-3xl font-bold text-white">
             Crave Admin

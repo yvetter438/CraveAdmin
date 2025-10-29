@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { 
   BarChart3, 
@@ -13,8 +14,7 @@ import {
   LogOut,
   Home,
   Activity,
-  Users,
-  Shield
+  Users
 } from 'lucide-react';
 
 const navigation = [
@@ -100,7 +100,13 @@ function SidebarContent({ pathname, externalLinks }: { pathname: string; externa
   return (
     <>
       <div className="flex items-center h-16 flex-shrink-0 px-4 bg-gradient-to-r from-purple-600 to-purple-700">
-        <Shield className="h-8 w-8 text-white" />
+        <Image 
+          src="/logo.png" 
+          alt="Crave Admin Logo" 
+          width={32} 
+          height={32} 
+          className="h-8 w-8"
+        />
         <span className="ml-2 text-xl font-bold text-white">Crave Admin</span>
       </div>
       <div className="flex-1 flex flex-col overflow-y-auto">
