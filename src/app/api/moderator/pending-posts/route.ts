@@ -26,10 +26,30 @@ export async function GET(request: NextRequest) {
         // Transform the data to match our interface and generate signed URLs
         const transformedPosts = await Promise.all(
           (posts || []).map(async (post) => {
+            console.log('Processing post:', post.id, 'video_url:', post.video_url);
+            
+            // Extract the file path from the video_url
+            let filePath = post.video_url;
+            
+            // If it's a full URL, extract just the path part
+            if (filePath.includes('storage/v1/object/public/videos/')) {
+              filePath = filePath.split('storage/v1/object/public/videos/')[1];
+            } else if (filePath.includes('videos/')) {
+              filePath = filePath.split('videos/')[1];
+            }
+            
+            console.log('Extracted file path:', filePath);
+            
             // Generate signed URL for private video access
-            const { data: signedUrlData } = await supabaseAdmin.storage
-              .from('videos') // Replace 'videos' with your actual bucket name
-              .createSignedUrl(post.video_url, 3600); // 1 hour expiry
+            const { data: signedUrlData, error: signedUrlError } = await supabaseAdmin.storage
+              .from('videos')
+              .createSignedUrl(filePath, 3600); // 1 hour expiry
+
+            if (signedUrlError) {
+              console.error('Signed URL error for post', post.id, ':', signedUrlError);
+            } else {
+              console.log('Generated signed URL for post', post.id, ':', signedUrlData?.signedUrl);
+            }
 
             return {
               id: post.id,

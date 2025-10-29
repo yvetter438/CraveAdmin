@@ -249,6 +249,13 @@ export default function ModerationPage() {
                           className="w-full h-full object-cover"
                           controls
                           muted
+                          onError={(e) => {
+                            console.error('Video load error for post', post.id, ':', e);
+                            console.error('Video URL:', post.video_url);
+                          }}
+                          onLoadStart={() => {
+                            console.log('Video loading for post', post.id, 'URL:', post.video_url);
+                          }}
                         />
                       </div>
                     </div>
