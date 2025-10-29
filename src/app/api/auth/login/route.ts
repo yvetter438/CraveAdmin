@@ -61,7 +61,16 @@ export async function POST(request: NextRequest) {
       // Clear rate limit on successful login
       rateLimit.delete(ip);
       console.log('Login successful for IP:', ip);
-      return createAuthResponse(true);
+      
+      // Set the auth cookie and return success
+      const response = NextResponse.json({ success: true });
+      response.cookies.set('admin-auth', 'authenticated', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 24 * 7, // 7 days
+      });
+      return response;
     } else {
       console.log('Login failed - invalid password for IP:', ip);
       return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
