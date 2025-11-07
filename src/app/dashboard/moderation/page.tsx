@@ -31,6 +31,18 @@ export default function ModerationPage() {
   const [loading, setLoading] = useState(true);
   const [processingId, setProcessingId] = useState<number | null>(null);
 
+  // Helper function to check if a report's content still exists
+  const isReportActive = (report: Report) => {
+    if (report.status !== 'pending') return false;
+    const contentExists = (report.target_type === 'post' && report.target_content?.post) ||
+                         (report.target_type === 'comment' && report.target_content?.comment) ||
+                         report.target_type === 'user';
+    return contentExists;
+  };
+
+  // Get only active reports (pending + content exists)
+  const activeReports = reports.filter(isReportActive);
+
   useEffect(() => {
     loadDashboardData();
   }, []);
@@ -172,13 +184,13 @@ export default function ModerationPage() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Reports</CardTitle>
+              <CardTitle className="text-sm font-medium">Active Reports</CardTitle>
               <Flag className="h-4 w-4 text-red-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.totalReports}</div>
+              <div className="text-2xl font-bold">{activeReports.length}</div>
               <p className="text-xs text-muted-foreground">
-                User reports
+                Pending with active content
               </p>
             </CardContent>
           </Card>
@@ -321,7 +333,7 @@ export default function ModerationPage() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle>Recent Reports ({reports.filter(r => r.status === 'pending').length})</CardTitle>
+                <CardTitle>Recent Reports ({activeReports.length})</CardTitle>
                 <CardDescription>
                   User reports that need attention
                 </CardDescription>
@@ -336,7 +348,7 @@ export default function ModerationPage() {
             </div>
           </CardHeader>
           <CardContent>
-            {reports.filter(r => r.status === 'pending').length === 0 ? (
+            {activeReports.length === 0 ? (
               <div className="text-center py-12">
                 <Flag className="mx-auto h-12 w-12 text-gray-400" />
                 <h3 className="mt-2 text-sm font-medium text-gray-900">No pending reports</h3>
@@ -344,7 +356,7 @@ export default function ModerationPage() {
               </div>
             ) : (
               <div className="space-y-3">
-                {reports.filter(r => r.status === 'pending').slice(0, 5).map((report) => (
+                {activeReports.slice(0, 5).map((report) => (
                   <Link
                     key={report.id}
                     href="/dashboard/reports"
@@ -378,13 +390,13 @@ export default function ModerationPage() {
                   </Link>
                 ))}
                 
-                {reports.filter(r => r.status === 'pending').length > 5 && (
+                {activeReports.length > 5 && (
                   <div className="text-center pt-2">
                     <Link
                       href="/dashboard/reports"
                       className="text-sm text-purple-600 hover:text-purple-700 font-medium"
                     >
-                      + {reports.filter(r => r.status === 'pending').length - 5} more reports
+                      + {activeReports.length - 5} more reports
                     </Link>
                   </div>
                 )}

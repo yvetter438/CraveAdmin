@@ -15,13 +15,15 @@ import {
   Home,
   Activity,
   Users,
-  Flag
+  Flag,
+  TrendingUp
 } from 'lucide-react';
 
 const navigation = [
   { name: 'Overview', href: '/dashboard', icon: Home },
   { name: 'Moderation', href: '/dashboard/moderation', icon: Video },
   { name: 'Reports', href: '/dashboard/reports', icon: Flag },
+  { name: 'App Metrics', href: '/dashboard/app-metrics', icon: TrendingUp },
   { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart3 },
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
 ];

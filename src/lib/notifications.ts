@@ -1,7 +1,5 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export interface VideoUploadNotification {
   postId: number;
   userId: string;
@@ -10,11 +8,21 @@ export interface VideoUploadNotification {
   createdAt: string;
 }
 
+// Lazy initialize Resend only when needed
+function getResend() {
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error('RESEND_API_KEY not configured');
+  }
+  return new Resend(process.env.RESEND_API_KEY);
+}
+
 export async function sendVideoUploadNotification(data: VideoUploadNotification) {
   if (!process.env.RESEND_API_KEY) {
     console.warn('RESEND_API_KEY not configured, skipping notification');
     return { success: false, message: 'Resend not configured' };
   }
+
+  const resend = getResend();
 
   if (!process.env.ADMIN_EMAIL) {
     console.warn('ADMIN_EMAIL not configured, skipping notification');
@@ -90,6 +98,12 @@ export async function sendVideoUploadNotification(data: VideoUploadNotification)
 
 // For testing purposes
 export async function sendTestNotification(adminEmail: string) {
+  if (!process.env.RESEND_API_KEY) {
+    return { success: false, error: 'RESEND_API_KEY not configured' };
+  }
+
+  const resend = getResend();
+
   try {
     await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL || 'Crave Admin <onboarding@resend.dev>',
