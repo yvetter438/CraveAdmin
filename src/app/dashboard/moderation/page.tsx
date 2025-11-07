@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
   Video, 
@@ -12,7 +13,8 @@ import {
   Play,
   Flag,
   RefreshCw,
-  AlertTriangle
+  AlertTriangle,
+  ArrowRight
 } from 'lucide-react';
 import { PendingPost, Report, ModerationStats, supabaseUrl } from '@/lib/supabase';
 
@@ -59,8 +61,6 @@ export default function ModerationPage() {
   };
 
   const handleApprove = async (postId: number) => {
-    if (!confirm('Are you sure you want to approve this post?')) return;
-    
     setProcessingId(postId);
     try {
       const response = await fetch('/api/moderator/approve-post', {
@@ -241,22 +241,30 @@ export default function ModerationPage() {
             ) : (
               <div className="space-y-4">
                 {pendingPosts.map((post) => (
-                  <div key={post.id} className="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg">
-                    <div className="relative">
-                      <div className="w-48 h-32 bg-black rounded-lg overflow-hidden">
+                  <div key={post.id} className="flex items-start space-x-4 p-4 border border-gray-200 rounded-lg hover:border-purple-200 hover:shadow-md transition-all">
+                    <div className="relative flex-shrink-0">
+                      <div className="w-48 h-32 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg overflow-hidden shadow-sm border border-purple-200">
                         <video
                           src={post.video_url}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover bg-purple-100"
+                          style={{ backgroundColor: '#f3e8ff' }}
                           controls
                           muted
+                          preload="metadata"
                           onError={(e) => {
                             console.error('Video load error for post', post.id, ':', e);
                             console.error('Video URL:', post.video_url);
+                            // Hide video element on error to show background
+                            const target = e.target as HTMLVideoElement;
+                            target.style.opacity = '0';
                           }}
                           onLoadStart={() => {
                             console.log('Video loading for post', post.id, 'URL:', post.video_url);
                           }}
                         />
+                      </div>
+                      <div className="absolute top-2 right-2 bg-purple-600 text-white text-xs px-2 py-1 rounded-full">
+                        <Video className="h-3 w-3" />
                       </div>
                     </div>
                     
@@ -311,10 +319,21 @@ export default function ModerationPage() {
         {/* Reports */}
         <Card>
           <CardHeader>
-            <CardTitle>Recent Reports ({reports.filter(r => r.status === 'pending').length})</CardTitle>
-            <CardDescription>
-              User reports that need attention
-            </CardDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle>Recent Reports ({reports.filter(r => r.status === 'pending').length})</CardTitle>
+                <CardDescription>
+                  User reports that need attention
+                </CardDescription>
+              </div>
+              <Link
+                href="/dashboard/reports"
+                className="flex items-center space-x-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium"
+              >
+                <span>View All Reports</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
           </CardHeader>
           <CardContent>
             {reports.filter(r => r.status === 'pending').length === 0 ? (
@@ -324,24 +343,29 @@ export default function ModerationPage() {
                 <p className="mt-1 text-sm text-gray-500">All reports have been reviewed.</p>
               </div>
             ) : (
-              <div className="space-y-4">
-                {reports.filter(r => r.status === 'pending').slice(0, 10).map((report) => (
-                  <div key={report.id} className="bg-gray-50 rounded-lg p-4">
+              <div className="space-y-3">
+                {reports.filter(r => r.status === 'pending').slice(0, 5).map((report) => (
+                  <Link
+                    key={report.id}
+                    href="/dashboard/reports"
+                    className="block bg-gradient-to-r from-gray-50 to-red-50 border-l-4 border-red-400 rounded-lg p-4 hover:shadow-md hover:border-red-500 transition-all"
+                  >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <Flag className="h-4 w-4 text-red-600" />
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
                             {report.reason.replace('_', ' ').toUpperCase()}
                           </span>
-                          <span className="text-sm text-gray-500">
-                            {report.target_type} #{report.target_id}
+                          <span className="text-sm text-gray-600 font-medium">
+                            {report.target_type.charAt(0).toUpperCase() + report.target_type.slice(1)} #{report.target_id}
                           </span>
                         </div>
-                        <p className="mt-2 text-sm text-gray-700">
+                        <p className="text-sm text-gray-700">
                           Reported by @{report.reporter.username}
                         </p>
                         {report.description && (
-                          <p className="mt-1 text-sm text-gray-600">
+                          <p className="mt-1 text-sm text-gray-600 italic line-clamp-1">
                             "{report.description}"
                           </p>
                         )}
@@ -349,9 +373,21 @@ export default function ModerationPage() {
                           {new Date(report.created_at).toLocaleString()}
                         </p>
                       </div>
+                      <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-red-600 transition-colors flex-shrink-0 ml-3" />
                     </div>
-                  </div>
+                  </Link>
                 ))}
+                
+                {reports.filter(r => r.status === 'pending').length > 5 && (
+                  <div className="text-center pt-2">
+                    <Link
+                      href="/dashboard/reports"
+                      className="text-sm text-purple-600 hover:text-purple-700 font-medium"
+                    >
+                      + {reports.filter(r => r.status === 'pending').length - 5} more reports
+                    </Link>
+                  </div>
+                )}
               </div>
             )}
           </CardContent>

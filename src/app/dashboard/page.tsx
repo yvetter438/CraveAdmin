@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Image from 'next/image';
 import { 
   Users, 
   Video, 
@@ -58,6 +59,7 @@ export default function DashboardPage() {
       items: [
         { name: "Stripe Dashboard", url: "https://dashboard.stripe.com", icon: DollarSign, description: "Payments & billing" },
         { name: "RevenueCat", url: "https://app.revenuecat.com", icon: DollarSign, description: "Subscription management" },
+        { name: "Resend", url: "https://resend.com/emails", icon: Mail, description: "Transactional emails" },
         { name: "Mailchimp", url: "https://mailchimp.com", icon: Mail, description: "Email marketing" },
         { name: "ConvertKit", url: "https://convertkit.com", icon: Mail, description: "Email automation" },
         { name: "Notion", url: "https://notion.so", icon: FileText, description: "Documentation & planning" },
@@ -79,6 +81,27 @@ export default function DashboardPage() {
   return (
     <div className="py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        {/* Dummy Module Indicator */}
+        <div className="mb-6 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+          <div className="flex items-center">
+            <Image 
+              src="/logo.png" 
+              alt="Crave Logo" 
+              width={32} 
+              height={32} 
+              className="h-8 w-8 mr-3"
+            />
+            <div>
+              <p className="text-sm font-medium text-yellow-800">
+                Placeholder Module - Static Data Only
+              </p>
+              <p className="text-sm text-yellow-700">
+                This page shows mock data and service links. For live moderation data, visit the Moderation page.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Crave Admin Hub</h1>
@@ -182,23 +205,34 @@ export default function DashboardPage() {
           ))}
         </div>
 
-        {/* Website Embed Section */}
+        {/* Website Link Section */}
         <Card className="mt-8">
           <CardHeader>
-            <CardTitle>Website Preview</CardTitle>
+            <CardTitle>Main Website</CardTitle>
             <CardDescription>
-              Quick preview of your main website
+              Visit your public-facing Crave website
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="border border-gray-200 rounded-lg overflow-hidden">
-              <iframe
-                src="https://cravesocial.app"
-                className="w-full h-96"
-                title="Crave Social Website"
-                sandbox="allow-scripts allow-same-origin"
-              />
-            </div>
+            <a
+              href="https://cravesocial.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between p-6 border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all duration-200 group"
+            >
+              <div className="flex items-center">
+                <Globe className="h-8 w-8 text-purple-600 mr-4" />
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-700">
+                    cravesocial.app
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Open the main Crave Social website
+                  </p>
+                </div>
+              </div>
+              <ExternalLink className="h-6 w-6 text-purple-600 group-hover:translate-x-1 transition-transform" />
+            </a>
           </CardContent>
         </Card>
       </div>

@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Image from 'next/image';
 import { 
   TrendingUp, 
   Users, 
@@ -14,6 +15,27 @@ export default function AnalyticsPage() {
   return (
     <div className="py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        {/* Dummy Module Indicator */}
+        <div className="mb-6 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+          <div className="flex items-center">
+            <Image 
+              src="/logo.png" 
+              alt="Crave Logo" 
+              width={32} 
+              height={32} 
+              className="h-8 w-8 mr-3"
+            />
+            <div>
+              <p className="text-sm font-medium text-yellow-800">
+                Placeholder Module - Static Data Only
+              </p>
+              <p className="text-sm text-yellow-700">
+                This page shows mock data. Real analytics integration pending.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Analytics</h1>
@@ -88,10 +110,11 @@ export default function AnalyticsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-                  <p className="text-gray-500">Chart will be integrated with PostHog</p>
+              <div className="h-64 flex items-center justify-center bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg border-2 border-dashed border-purple-200">
+                <div className="text-center p-6">
+                  <BarChart3 className="h-16 w-16 text-purple-400 mx-auto mb-3" />
+                  <p className="text-purple-700 font-medium mb-1">Analytics Chart Placeholder</p>
+                  <p className="text-sm text-purple-600">Will be integrated with PostHog</p>
                 </div>
               </div>
             </CardContent>
@@ -106,37 +129,58 @@ export default function AnalyticsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div>
-                    <h4 className="font-medium text-sm">Sunset Timelapse</h4>
-                    <p className="text-xs text-gray-500">by john_doe</p>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-100 hover:border-purple-300 transition-colors">
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-purple-200 rounded-lg flex items-center justify-center mr-3">
+                      <Video className="h-5 w-5 text-purple-700" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-sm text-gray-900">Sunset Timelapse</h4>
+                      <p className="text-xs text-gray-600">by john_doe</p>
+                    </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm font-medium">12.5K views</div>
-                    <div className="text-xs text-gray-500">2.1K likes</div>
+                    <div className="text-sm font-semibold text-purple-700">12.5K views</div>
+                    <div className="text-xs text-gray-600 flex items-center justify-end">
+                      <Heart className="h-3 w-3 mr-1" />2.1K
+                    </div>
                   </div>
                 </div>
                 
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div>
-                    <h4 className="font-medium text-sm">Cooking Tutorial</h4>
-                    <p className="text-xs text-gray-500">by chef_mike</p>
+                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg border border-blue-100 hover:border-blue-300 transition-colors">
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-blue-200 rounded-lg flex items-center justify-center mr-3">
+                      <Video className="h-5 w-5 text-blue-700" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-sm text-gray-900">Cooking Tutorial</h4>
+                      <p className="text-xs text-gray-600">by chef_mike</p>
+                    </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm font-medium">8.7K views</div>
-                    <div className="text-xs text-gray-500">1.8K likes</div>
+                    <div className="text-sm font-semibold text-blue-700">8.7K views</div>
+                    <div className="text-xs text-gray-600 flex items-center justify-end">
+                      <Heart className="h-3 w-3 mr-1" />1.8K
+                    </div>
                   </div>
                 </div>
                 
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div>
-                    <h4 className="font-medium text-sm">Dance Challenge</h4>
-                    <p className="text-xs text-gray-500">by dancer_sarah</p>
+                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-100 hover:border-green-300 transition-colors">
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-green-200 rounded-lg flex items-center justify-center mr-3">
+                      <Video className="h-5 w-5 text-green-700" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-sm text-gray-900">Dance Challenge</h4>
+                      <p className="text-xs text-gray-600">by dancer_sarah</p>
+                    </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm font-medium">6.2K views</div>
-                    <div className="text-xs text-gray-500">1.5K likes</div>
+                    <div className="text-sm font-semibold text-green-700">6.2K views</div>
+                    <div className="text-xs text-gray-600 flex items-center justify-end">
+                      <Heart className="h-3 w-3 mr-1" />1.5K
+                    </div>
                   </div>
                 </div>
               </div>

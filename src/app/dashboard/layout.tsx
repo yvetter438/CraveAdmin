@@ -14,12 +14,14 @@ import {
   LogOut,
   Home,
   Activity,
-  Users
+  Users,
+  Flag
 } from 'lucide-react';
 
 const navigation = [
   { name: 'Overview', href: '/dashboard', icon: Home },
   { name: 'Moderation', href: '/dashboard/moderation', icon: Video },
+  { name: 'Reports', href: '/dashboard/reports', icon: Flag },
   { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart3 },
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
 ];
@@ -45,7 +47,7 @@ export default function DashboardLayout({
   };
 
   return (
-    <div className="h-screen flex overflow-hidden bg-gray-100">
+    <div className="h-screen flex overflow-hidden bg-purple-50">
       {/* Mobile sidebar */}
       <div className={`fixed inset-0 flex z-40 md:hidden ${sidebarOpen ? '' : 'hidden'}`}>
         <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setSidebarOpen(false)} />
