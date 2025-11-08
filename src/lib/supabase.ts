@@ -51,6 +51,20 @@ export interface Report {
   reporter: {
     username: string;
   };
+  target_content?: {
+    post?: {
+      id: number;
+      description?: string;
+      video_url?: string;
+      user_id: string;
+    };
+    comment?: {
+      id: number;
+      content: string;
+      post_id: number;
+      user_id: string;
+    };
+  };
 }
 
 export interface ModerationStats {
