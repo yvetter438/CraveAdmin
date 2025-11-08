@@ -110,60 +110,128 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Videos Pending</CardTitle>
-              <Video className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">23</div>
-              <p className="text-xs text-muted-foreground">
-                Awaiting moderation
-              </p>
-            </CardContent>
-          </Card>
+        {/* Core Business Metrics */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="text-xl">📊 Core Business Metrics</CardTitle>
+            <CardDescription>Key numbers to track your growth (update these manually)</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border-2 border-purple-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-purple-900">Total Users</span>
+                  <Users className="h-5 w-5 text-purple-600" />
+                </div>
+                <div className="text-3xl font-bold text-purple-900">10</div>
+                <p className="text-xs text-purple-700 mt-1">🌱 Early stage</p>
+              </div>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Users</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">12,345</div>
-              <p className="text-xs text-muted-foreground">
-                +20.1% this month
-              </p>
-            </CardContent>
-          </Card>
+              <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border-2 border-blue-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-blue-900">Videos Uploaded</span>
+                  <Video className="h-5 w-5 text-blue-600" />
+                </div>
+                <div className="text-3xl font-bold text-blue-900">112</div>
+                <p className="text-xs text-blue-700 mt-1">📈 11.2 per user</p>
+              </div>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">App Status</CardTitle>
-              <Activity className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-600">Live</div>
-              <p className="text-xs text-muted-foreground">
-                99.9% uptime
-              </p>
-            </CardContent>
-          </Card>
+              <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border-2 border-green-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-green-900">User Demos</span>
+                  <Activity className="h-5 w-5 text-green-600" />
+                </div>
+                <div className="text-3xl font-bold text-green-900">2</div>
+                <p className="text-xs text-green-700 mt-1">🎯 Schedule more!</p>
+              </div>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Revenue</CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">$8,234</div>
-              <p className="text-xs text-muted-foreground">
-                +12.5% this month
-              </p>
-            </CardContent>
-          </Card>
-        </div>
+              <div className="p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg border-2 border-orange-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-orange-900">Customer Interviews</span>
+                  <Users className="h-5 w-5 text-orange-600" />
+                </div>
+                <div className="text-3xl font-bold text-orange-900">0</div>
+                <p className="text-xs text-orange-700 mt-1">💬 Start user research</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+              <div className="p-4 bg-gradient-to-br from-pink-50 to-pink-100 rounded-lg border-2 border-pink-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-pink-900">Total Video Minutes</span>
+                  <Video className="h-5 w-5 text-pink-600" />
+                </div>
+                <div className="text-3xl font-bold text-pink-900">~280</div>
+                <p className="text-xs text-pink-700 mt-1">⏱️ ~2.5 min avg length</p>
+              </div>
+
+              <div className="p-4 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-lg border-2 border-indigo-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-indigo-900">App Store Ranking</span>
+                  <TrendingUp className="h-5 w-5 text-indigo-600" />
+                </div>
+                <div className="text-2xl font-bold text-indigo-900">#16 / #15</div>
+                <p className="text-xs text-indigo-700 mt-1">🔍 "Crave" (with/without ads)</p>
+              </div>
+
+              <div className="p-4 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg border-2 border-yellow-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-yellow-900">DAU / MAU</span>
+                  <Activity className="h-5 w-5 text-yellow-600" />
+                </div>
+                <div className="text-3xl font-bold text-yellow-900">4 / 10</div>
+                <p className="text-xs text-yellow-700 mt-1">📊 40% engagement rate</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Action Items */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="text-xl">✅ This Week's Focus</CardTitle>
+            <CardDescription>Key action items and goals for early stage growth</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-500 rounded-lg">
+                <h3 className="font-semibold text-purple-900 mb-2">🎯 Growth Goals</h3>
+                <ul className="space-y-1 text-sm text-gray-700">
+                  <li>• Get to 20 users (double it!)</li>
+                  <li>• 200+ videos uploaded</li>
+                  <li>• Get 10 more app reviews</li>
+                </ul>
+              </div>
+
+              <div className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-500 rounded-lg">
+                <h3 className="font-semibold text-blue-900 mb-2">🚀 Product & Research</h3>
+                <ul className="space-y-1 text-sm text-gray-700">
+                  <li>• Schedule 2 customer interviews</li>
+                  <li>• Watch user sessions / feedback</li>
+                  <li>• Fix any critical bugs</li>
+                </ul>
+              </div>
+
+              <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 rounded-lg">
+                <h3 className="font-semibold text-green-900 mb-2">💡 Retention Focus</h3>
+                <ul className="space-y-1 text-sm text-gray-700">
+                  <li>• Check who's active vs. churned</li>
+                  <li>• Reach out to inactive users</li>
+                  <li>• Improve onboarding flow</li>
+                </ul>
+              </div>
+
+              <div className="p-4 bg-gradient-to-r from-orange-50 to-amber-50 border-l-4 border-orange-500 rounded-lg">
+                <h3 className="font-semibold text-orange-900 mb-2">📣 Marketing & ASO</h3>
+                <ul className="space-y-1 text-sm text-gray-700">
+                  <li>• Optimize app store listing</li>
+                  <li>• Ask users to leave reviews</li>
+                  <li>• Share on social media 3x</li>
+                </ul>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Service Links */}
         <div className="space-y-8">
