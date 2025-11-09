@@ -11,7 +11,7 @@ export default function AppMetricsPage() {
     ranking_without_ads: 15,
     reviews: 1,
     keyword: 'Crave'
-  };
+  }; 
 
   // Historical data for trend charts (newest first)
   const historicalData = [
